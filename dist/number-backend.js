@@ -73,18 +73,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // api docs: https://mikemcl.github.io/decimal.js/
 	    _requireDecimal: function _requireDecimal(config) {
 	      var Decimal = void 0;
-	      if (global.window && window.Decimal) {
-	        Decimal = window.Decimal;
+	      var win = global && global.window;
+	      if (win && win.Decimal) {
+	        Decimal = win.Decimal;
 	      } else {
 	        // the build/minifier must avoid compiling this in. It's externalized in the gulpfile.
 	        Decimal = __webpack_require__(1);
 	      }
 	      return Decimal.clone(config);
 	    },
-	    normalize: function normalize(val, _ref) {
-	      var rounding = _ref.rounding;
-	
-	      var Decimal = this._requireDecimal({ rounding: rounding });
+	    normalize: function normalize(val, config) {
+	      var Decimal = this._requireDecimal(config);
 	      return new Decimal(val);
 	    }
 	  }

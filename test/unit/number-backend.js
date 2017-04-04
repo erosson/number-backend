@@ -1,18 +1,15 @@
-import numberBackend from '../../src/number-backend';
+import backends from '../../src/number-backend'
+import Decimal from 'decimal.js'
 
 describe('numberBackend', () => {
-  describe('Greet function', () => {
-    beforeEach(() => {
-      spy(numberBackend, 'greet');
-      numberBackend.greet();
-    });
-
-    it('should have been run once', () => {
-      expect(numberBackend.greet).to.have.been.calledOnce;
-    });
-
-    it('should have always returned hello', () => {
-      expect(numberBackend.greet).to.have.always.returned('hello');
-    });
-  });
-});
+  it('inits natives', () => {
+    const backend = backends['native']
+    expect(backend.normalize(10)).to.equal(10)
+  })
+  it('inits decimals', () => {
+    const backend = backends['decimal.js']
+    expect(backend.normalize('10').equals(new Decimal(10))).to.equal(true)
+    expect(backend.normalize(10).equals(new Decimal(10))).to.equal(true)
+    expect(backend.normalize(new Decimal(10)).equals(new Decimal(10))).to.equal(true)
+  })
+})

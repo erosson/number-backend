@@ -12,8 +12,9 @@ const backends = {
     // api docs: https://mikemcl.github.io/decimal.js/
     _requireDecimal(config) {
       let Decimal
-      if (global.window && window.Decimal) {
-        Decimal = window.Decimal
+      let win = global && global.window
+      if (win && win.Decimal) {
+        Decimal = win.Decimal
       }
       else {
         // the build/minifier must avoid compiling this in. It's externalized in the gulpfile.
@@ -21,8 +22,8 @@ const backends = {
       }
       return Decimal.clone(config)
     },
-    normalize(val, {rounding}) {
-      const Decimal = this._requireDecimal({rounding})
+    normalize(val, config) {
+      const Decimal = this._requireDecimal(config)
       return new Decimal(val)
     },
   },
