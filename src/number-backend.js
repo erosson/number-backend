@@ -1,4 +1,4 @@
-export default const backends = {
+const backends = {
   'native': {
     normalize(val) {
       return val
@@ -27,3 +27,4 @@ export default const backends = {
     },
   },
 }
+export default backends

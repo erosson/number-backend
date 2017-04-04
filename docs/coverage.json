@@ -1,0 +1,14 @@
+{
+  "coverage": "0%",
+  "expectCount": 1,
+  "actualCount": 0,
+  "files": {
+    "src/number-backend.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        1
+      ]
+    }
+  }
+}
