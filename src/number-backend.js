@@ -1,45 +1,113 @@
+function isWrapped(a) {
+  return a && typeof(a.val) !== 'undefined'
+}
+function unwrap(a) {
+  return isWrapped(a) ? a.val : a
+}
+function wrap(a) {
+  return isWrapped(a) ? a : new WrapNative(a)
+}
 class WrapNative {
   constructor(val) {
     this.val = val
   }
   // match the decimal.js interface. https://github.com/MikeMcl/decimal.js/
-  add(a) { return new WrapNative(this.val + a) }
-  div(a) { return new WrapNative(this.val / a) }
-  mod(a) { return new WrapNative(this.val % a) }
-  mul(a) { return new WrapNative(this.val * a) }
-  pow(a) { return new WrapNative(Math.pow(this.val, a)) }
-  sub(a) { return new WrapNative(this.val - a) }
-
   abs() { return new WrapNative(Math.abs(this.val)) }
+  absoluteValue() { return this.abs() }
   ceil() { return new WrapNative(Math.ceil(this.val)) }
   floor() { return new WrapNative(Math.floor(this.val)) }
-  min() { return new WrapNative(Math.min(this.val)) }
-  max() { return new WrapNative(Math.max(this.val)) }
+  neg() { return new WrapNative(this.val * -1) }
+  negated() { return this.neg() }
   round() { return new WrapNative(Math.round(this.val)) }
+
+  // toDecimalPlaces
+  // toDP
+  // toFraction
+  // toNearest
+  // toSignificantDigits
+  // toSD
   trunc() { return new WrapNative(Math.trunc(this.val)) }
+  truncated() { return this.trunc() }
+
+  // toBinary
+  // toExponential
+  // toFixed
+  // toHex
+  // toHexadecimal
+  toJson() { return this.val }
+  // toOctal
+  // toPrecision
+  toString() { return this.val+'' }
+  valueOf() { return this.val }
+  // toNumber
+
+  // cmp
+  // comparedTo
+  eq(a) { return this.val === unwrap(a) }
+  equals(a) { return this.eq(a) }
+  gt(a) { return this.val > unwrap(a) }
+  greaterThan(a) { return this.gt(a) }
+  gte(a) { return this.val >= unwrap(a) }
+  greaterThanOrEqualTo(a) { return this.gte(a) }
+  lt(a) { return this.val < unwrap(a) }
+  lessThan(a) { return this.lt(a) }
+  lte(a) { return this.val <= unwrap(a) }
+  lessThanOrEqualTo(a) { return this.lte(a) }
 
   cbrt() { return new WrapNative(Math.cbrt(this.val)) }
-  sqrt() { return new WrapNative(Math.sqrt(this.val)) }
-
+  cubeRoot() { return this.cbrt() }
+  div(a) { return new WrapNative(this.val / unwrap(a)) }
+  dividedBy(a) { return this.div(a) }
+  divToInt(a) { return this.div(a).floor() }
+  dividedToIntegerBy(a) { return this.divToInt() }
+  log(n) { return new WrapNative(Math.log(this.val, unwrap(n))) }
+  logarithm(n) { return this.log(n) }
+  sub(a) { return new WrapNative(this.val - unwrap(a)) }
+  minus(a) { return this.sub(a) }
+  mod(a) { return new WrapNative(this.val % unwrap(a)) }
+  modulo(a) { return this.mod(a) }
   exp() { return new WrapNative(Math.exp(this.val)) }
+  naturalExponential() { return this.exp() }
   ln() { return new WrapNative(Math.ln(this.val)) }
-  log() { return new WrapNative(Math.log(this.val)) }
-  log2() { return new WrapNative(Math.log2(this.val)) }
-  log10() { return new WrapNative(Math.log10(this.val)) }
+  naturalLogarithm() { return this.ln() }
+  add(a) { return new WrapNative(this.val + unwrap(a)) }
+  plus(a) { return this.add(a) }
+  sqrt() { return new WrapNative(Math.sqrt(this.val)) }
+  squareRoot() { return this.sqrt() }
+  mul(a) { return new WrapNative(this.val * unwrap(a)) }
+  times(a) { return this.mul(a) }
+  pow(a) { return new WrapNative(Math.pow(this.val, unwrap(a))) }
+  toPower(a) { return this.pow(a) }
+
+  // dp
+  // decimalPlaces
+  // sd
+  // precision
 
   cos() { return new WrapNative(Math.cos(this.val)) }
+  cosine() { return this.cos() }
   sin() { return new WrapNative(Math.sin(this.val)) }
+  sine() { return this.sin() }
   tan() { return new WrapNative(Math.tan(this.val)) }
+  tangent() { return this.tan() }
   acos() { return new WrapNative(Math.acos(this.val)) }
+  inverseCosine() { return this.acos() }
   asin() { return new WrapNative(Math.asin(this.val)) }
+  inverseSine() { return this.asin() }
   atan() { return new WrapNative(Math.atan(this.val)) }
-  atan2() { return new WrapNative(Math.atan2(this.val)) }
+  inverseTangent() { return this.asin() }
+
+  // cosh...
+  // acosh...
+
+  log2() { return new WrapNative(Math.log2(this.val)) }
+  log10() { return new WrapNative(Math.log10(this.val)) }
 }
 
 const backends = {
   'native': {
     normalize(val) {
-      return val
+      return wrap(val)
     },
   },
 
