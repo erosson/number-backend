@@ -51,7 +51,7 @@
     // much smaller for the common case: no decimal.js.
     // api docs: https://mikemcl.github.io/decimal.js/
     _requireDecimal(config) {
-      let Decimal = config.Decimal || config.decimal
+      let Decimal = (config &amp;&amp; (config.Decimal || config.decimal))
         || (global &amp;&amp; global.Decimal)
         || (global &amp;&amp; global.window &amp;&amp; window.Decimal)
         // the build/minifier must avoid compiling this in. It&apos;s externalized in the gulpfile.
