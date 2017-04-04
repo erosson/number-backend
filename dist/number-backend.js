@@ -72,7 +72,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // much smaller for the common case: no decimal.js.
 	    // api docs: https://mikemcl.github.io/decimal.js/
 	    _requireDecimal: function _requireDecimal(config) {
-	      var Decimal = global && global.Decimal || global.window && window.Decimal;
+	      var Decimal = global && global.Decimal || global && global.window && window.Decimal;
 	      if (!Decimal) {
 	        // the build/minifier must avoid compiling this in. It's externalized in the gulpfile.
 	        Decimal = __webpack_require__(1);
