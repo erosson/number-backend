@@ -11,5 +11,6 @@ describe('numberBackend', () => {
     expect(backend.normalize('10').equals(new Decimal(10))).to.equal(true)
     expect(backend.normalize(10).equals(new Decimal(10))).to.equal(true)
     expect(backend.normalize(new Decimal(10)).equals(new Decimal(10))).to.equal(true)
+    expect(backend.normalize(new Decimal('1e9997')).equals(new Decimal('1e9997'))).to.equal(true)
   })
 })
